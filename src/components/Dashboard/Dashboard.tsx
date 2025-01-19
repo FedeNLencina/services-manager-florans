@@ -1,5 +1,12 @@
 import React from "react";
+import { Table } from "./Table";
+import { UserInfo } from "./UserInfo";
 
 export const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <UserInfo></UserInfo>
+      <Table></Table>
+    </>
+  );
 };
