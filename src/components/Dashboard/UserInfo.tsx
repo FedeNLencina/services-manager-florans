@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 export const UserInfo = () => {
   return (
@@ -22,9 +23,11 @@ export const UserInfo = () => {
           className="collapse navbar-collapse justify-content-md-end"
           id="navbarTogglerDemo02"
         >
-          <button className="btn btn-primary" type="submit">
-            Log out
-          </button>
+          <Link to="/login">
+            <button className="btn btn-primary" type="submit">
+              Log out
+            </button>
+          </Link>
         </div>
       </div>
     </nav>
