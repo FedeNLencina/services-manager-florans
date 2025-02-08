@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router";
+import { googleLogout } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 
 export const UserInfo = () => {
+  const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid d-flex justify-content-between">
@@ -23,11 +26,16 @@ export const UserInfo = () => {
           className="collapse navbar-collapse justify-content-md-end"
           id="navbarTogglerDemo02"
         >
-          <Link to="/login">
-            <button className="btn btn-primary" type="submit">
-              Log out
-            </button>
-          </Link>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            onClick={() => {
+              googleLogout();
+              navigate("/login");
+            }}
+          >
+            Log out
+          </button>
         </div>
       </div>
     </nav>

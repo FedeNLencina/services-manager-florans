@@ -2,7 +2,8 @@ import React from "react";
 import "./login.css";
 import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -111,6 +112,7 @@ export const Login = () => {
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               console.log(credentialResponse);
+              console.log(jwtDecode(credentialResponse.credential));
               navigate("/");
             }}
             onError={() => {
