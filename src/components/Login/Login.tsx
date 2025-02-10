@@ -1,12 +1,31 @@
 import React from "react";
 import "./login.css";
-import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { auth, signInWithCredential } from "../../firebase";
+import { GoogleAuthProvider } from "firebase/auth";
 
 export const Login = () => {
   const navigate = useNavigate();
+
+  const handleGoogleLogin = async (response) => {
+    try {
+      // Obtener el ID Token de Google OAuth
+      const idToken = response.credential;
+
+      // Crear credenciales para Firebase con el ID Token
+      const credential = GoogleAuthProvider.credential(idToken);
+
+      // Iniciar sesión en Firebase con las credenciales de Google
+      const userCredential = await signInWithCredential(auth, credential);
+
+      console.log("Usuario autenticado en Firebase:", userCredential.user);
+      navigate("/");
+    } catch (error) {
+      console.error("Error en la autenticación con Firebase:", error);
+    }
+  };
   return (
     <div className="d-flex align-items-center py-4 vh-100">
       <main className="form-signin w-100 m-auto">
@@ -110,11 +129,7 @@ export const Login = () => {
           <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
           <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              console.log(credentialResponse);
-              console.log(jwtDecode(credentialResponse.credential));
-              navigate("/");
-            }}
+            onSuccess={handleGoogleLogin}
             onError={() => {
               console.log("Login Failed");
             }}

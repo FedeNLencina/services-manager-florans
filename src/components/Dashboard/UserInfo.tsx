@@ -1,15 +1,22 @@
-import React from "react";
-import { Link } from "react-router";
-import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useAuth } from "../../hooks/useAuth";
 
 export const UserInfo = () => {
+  const user = useAuth();
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/login");
+    console.log("Sesión cerrada");
+  };
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid d-flex justify-content-between">
         <a className="navbar-brand" href="#">
-          Hola usuario
+          Hola {user?.displayName}
         </a>
         <button
           className="navbar-toggler"
@@ -29,10 +36,7 @@ export const UserInfo = () => {
           <button
             className="btn btn-primary"
             type="submit"
-            onClick={() => {
-              googleLogout();
-              navigate("/login");
-            }}
+            onClick={handleLogout}
           >
             Log out
           </button>
