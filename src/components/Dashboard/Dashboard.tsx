@@ -6,6 +6,7 @@ import { useEmailDocument } from "../../hooks/useEmailDocument";
 export const Dashboard = () => {
   const emails = useEmailDocument();
   console.log("emails: ", emails);
+  
   return (
     <>
       <UserInfo></UserInfo>

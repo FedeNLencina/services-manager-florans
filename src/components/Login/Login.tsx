@@ -7,7 +7,7 @@ import { auth, signInWithCredential } from "../../firebase";
 import { GoogleAuthProvider } from "firebase/auth";
 
 export const Login = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const handleGoogleLogin = async (response) => {
     try {
