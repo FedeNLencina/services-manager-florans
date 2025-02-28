@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 import { auth, signInWithCredential } from "../../firebase";
 import { GoogleAuthProvider } from "firebase/auth";
+import { UserContext } from "../../context/UserContext";
 
 export const Login = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { setEmail } = useContext(UserContext);
 
   const handleGoogleLogin = async (response) => {
     try {
@@ -19,6 +20,7 @@ export const Login = () => {
 
       // Iniciar sesión en Firebase con las credenciales de Google
       const userCredential = await signInWithCredential(auth, credential);
+      setEmail(userCredential.user.email);
 
       console.log("Usuario autenticado en Firebase:", userCredential.user);
       navigate("/");

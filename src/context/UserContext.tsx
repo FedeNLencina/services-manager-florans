@@ -8,9 +8,7 @@ interface UserContextProps {
 
 export const UserContext = createContext<UserContextProps | null>(null);
 
-export const UserContextProvider = ({
-  children,
-}: React.PropsWithChildren<{}>) => {
+export const UserContextProvider = ({ children }: any) => {
   const [email, setEmail] = useState<string>("");
 
   return (
