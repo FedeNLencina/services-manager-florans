@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebase";
-import { useAuth } from "../../hooks/useAuth";
+import { auth } from "../../../firebase";
+import { useAuth } from "../../../hooks/useAuth";
 
 export const UserInfo = () => {
   const user = useAuth();

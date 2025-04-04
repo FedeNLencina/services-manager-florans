@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { auth, signInWithCredential } from "../../firebase";
 import { GoogleAuthProvider } from "firebase/auth";
-import { UserContext } from "../../context/UserContext";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { setEmail } = useContext(UserContext);
 
   const handleGoogleLogin = async (response) => {
     try {
@@ -20,7 +17,6 @@ export const Login = () => {
 
       // Iniciar sesión en Firebase con las credenciales de Google
       const userCredential = await signInWithCredential(auth, credential);
-      setEmail(userCredential.user.email);
 
       console.log("Usuario autenticado en Firebase:", userCredential.user);
       navigate("/");
@@ -31,7 +27,7 @@ export const Login = () => {
   return (
     <div className="d-flex align-items-center py-4 vh-100">
       <main className="form-signin w-100 m-auto">
-        <form>
+        <form className="d-flex flex-column justify-content-center">
           <div className="d-flex justify-content-center">
             <svg
               width="100px"
@@ -128,17 +124,17 @@ export const Login = () => {
             </svg>
           </div>
 
-          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-            useOneTap
-          />
-
-          <p className="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
+          <h1 className="h3 mb-3 fw-normal text-center">Please sign in</h1>
+          <div className="googleButton">
+            <GoogleLogin
+              width={"300px"}
+              onSuccess={handleGoogleLogin}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+              useOneTap
+            />
+          </div>
         </form>
       </main>
     </div>

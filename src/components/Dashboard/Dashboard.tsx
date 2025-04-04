@@ -1,18 +1,29 @@
-import React, { useContext } from "react";
-import { Table } from "./Table";
-import { UserInfo } from "./UserInfo";
+import { Table } from "./Table/Table";
+import { UserInfo } from "./UserInfo/UserInfo";
 import { useEmailDocument } from "../../hooks/useEmailDocument";
-import { UserContext } from "../../context/UserContext";
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { NotLoggedUser } from "./NotLoguedPage/NotLoggedUser";
 
 export const Dashboard = () => {
   const emails = useEmailDocument();
+  const user = useAuth();
+  const navigate = useNavigate();
   console.log("emails: ", emails);
-  const { email } = useContext(UserContext);
+  console.log("user email", user?.email);
 
   return (
     <>
-      <UserInfo></UserInfo>
-      <Table></Table>
+      {!user ? (
+        <>
+          <NotLoggedUser></NotLoggedUser>
+        </>
+      ) : (
+        <>
+          <UserInfo></UserInfo>
+          <Table></Table>
+        </>
+      )}
     </>
   );
 };
