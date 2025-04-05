@@ -8,7 +8,7 @@ import { NotLoggedUser } from "./NotLoguedPage/NotLoggedUser";
 export const Dashboard = () => {
   const emails = useEmailDocument();
   const user = useAuth();
-  const navigate = useNavigate();
+
   console.log("emails: ", emails);
   console.log("user email", user?.email);
 
