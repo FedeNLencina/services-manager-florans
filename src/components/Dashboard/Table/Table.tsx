@@ -1,35 +1,36 @@
 import React from "react";
+import { Timestamp } from "firebase/firestore";
 
-export const Table = () => {
+interface TableInfoProps {
+  tableInfo: any[];
+}
+export const Table = ({ tableInfo }: TableInfoProps) => {
+  console.log("table info in tablke componente: ", tableInfo);
   return (
     <div className="container text-center">
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Fecha</th>
             <th scope="col">Servico</th>
             <th scope="col">Precio</th>
             <th scope="col">Medio de pago</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {tableInfo?.map((info, index) => {
+            return (
+              <tr>
+                <th scope="row">
+                  {new Date(info.date.seconds * 1000).toLocaleString()}
+                </th>
+
+                <td>{info.serviceName}</td>
+                <td>{info.price}</td>
+                <td>{info.payMethod}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

@@ -11,21 +11,7 @@ import { useEmailDocument } from "../../hooks/useEmailDocument";
 export const Login = () => {
   const navigate = useNavigate();
   const emails = useEmailDocument();
-  const sendEmailLogged = async (emailLogged: string) => {
-    if (emails.length == 0) {
-      return;
-    } else {
-      const emailAlreadyExists = emails.find((email) => email == emailLogged);
-      if (!emailAlreadyExists) {
-        const mailsRef = collection(db, "mails");
-        await setDoc(doc(mailsRef), {
-          mail: emailLogged,
-        });
-      } else {
-        return;
-      }
-    }
-  };
+
 
   const handleGoogleLogin = async (response) => {
     try {
@@ -39,10 +25,7 @@ export const Login = () => {
       const userCredential = await signInWithCredential(auth, credential);
 
       console.log("Usuario autenticado en Firebase:", userCredential.user);
-
-      if (userCredential.user.email) {
-        sendEmailLogged(userCredential.user.email);
-      }
+    
       navigate("/");
     } catch (error) {
       console.error("Error en la autenticación con Firebase:", error);
