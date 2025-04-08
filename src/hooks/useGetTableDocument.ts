@@ -10,8 +10,8 @@ export const useGetTableDocument = (documentName: string) => {
       let serviceArray: any[] = [];
       const querySnapshot = await getDocs(collection(db, documentName));
       querySnapshot.forEach((doc) => {
-        if (doc.data()) {
-          serviceArray.push( doc.data());
+        if (doc.data()) { 
+          serviceArray.push( {...doc.data(), id: doc.id});
         }
       });
       setServiceInfoUser(serviceArray);

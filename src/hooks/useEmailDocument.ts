@@ -9,7 +9,7 @@ export const useEmailDocument= () => {
         let emails:string[] = []
         const querySnapshot = await getDocs(collection(db, "mails"));
         querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data()}`);
+          
             if (doc.data()) {
                 emails.push(doc.data().mail)
             }

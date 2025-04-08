@@ -3,15 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { auth, signInWithCredential } from "../../firebase";
 import { GoogleAuthProvider } from "firebase/auth";
-import { AES } from "crypto-ts";
-import { db } from "../../firebase";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { useEmailDocument } from "../../hooks/useEmailDocument";
+
 
 export const Login = () => {
   const navigate = useNavigate();
-  const emails = useEmailDocument();
-
 
   const handleGoogleLogin = async (response) => {
     try {

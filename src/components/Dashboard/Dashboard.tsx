@@ -29,9 +29,6 @@ export const Dashboard = () => {
 
   const userTableInfo = useGetTableDocument(databaseName);
 
-  console.log("emails: ", emails);
-  console.log("user email", user?.email);
-  console.log("userTableInfo: ", userTableInfo);
 
   return (
     <>
@@ -43,7 +40,9 @@ export const Dashboard = () => {
         <>
           <UserInfo></UserInfo>
           <div className="d-flex justify-content-center">
-            <ServiceSelectionContainer></ServiceSelectionContainer>
+            <ServiceSelectionContainer
+              tableInfo={userTableInfo}
+            ></ServiceSelectionContainer>
           </div>
           <Table tableInfo={userTableInfo}></Table>
         </>
