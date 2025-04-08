@@ -4,6 +4,7 @@ import { useEmailDocument } from "../../hooks/useEmailDocument";
 import { useAuth } from "../../hooks/useAuth";
 import { NotLoggedUser } from "./NotLoguedPage/NotLoggedUser";
 import { useGetTableDocument } from "../../hooks/useGetTableDocument";
+import { ServiceSelectionContainer } from "./ServiceSelection/ServiceSelectionContainer";
 
 export const Dashboard = () => {
   const emails = useEmailDocument();
@@ -41,6 +42,9 @@ export const Dashboard = () => {
       ) : (
         <>
           <UserInfo></UserInfo>
+          <div className="d-flex justify-content-center">
+            <ServiceSelectionContainer></ServiceSelectionContainer>
+          </div>
           <Table tableInfo={userTableInfo}></Table>
         </>
       )}

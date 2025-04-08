@@ -12,6 +12,7 @@ export const Table = ({ tableInfo }: TableInfoProps) => {
         <thead>
           <tr>
             <th scope="col">Fecha</th>
+            <th scope="col">Profesional</th>
             <th scope="col">Servico</th>
             <th scope="col">Precio</th>
             <th scope="col">Medio de pago</th>
@@ -24,7 +25,7 @@ export const Table = ({ tableInfo }: TableInfoProps) => {
                 <th scope="row">
                   {new Date(info.date.seconds * 1000).toLocaleString()}
                 </th>
-
+                <td>{info.profesional}</td>
                 <td>{info.serviceName}</td>
                 <td>{info.price}</td>
                 <td>{info.payMethod}</td>
