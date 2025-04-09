@@ -6,6 +6,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { ServiceCreationContext } from "../../../../context/ServiceCreationContext";
 import { ServiceTooltip } from "./ServiceTooltip/ServiceTooltip";
+import { ToastContainer, toast } from "react-toastify";
 
 interface ServiceSelectorModalProps {
   services: any[];
@@ -20,20 +21,14 @@ export const ServiceSelectorModal = ({
   tableInfo,
   databaseName,
 }: ServiceSelectorModalProps) => {
-  const { serviceName, profesionalName, servicePrice, payMethod } = useContext(
-    ServiceCreationContext
-  );
-  const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [errorAlert, setErrorAlert] = useState<boolean>(false);
-  const [addedAlert, setAddedAlert] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   if (showAlert) {
-  //     setTimeout(() => {
-  //       setShowAlert(false);
-  //     }, 1000);
-  //   }
-  // }, [showAlert]);
+  const {
+    serviceName,
+    profesionalName,
+    servicePrice,
+    payMethod,
+    setServicePrice,
+    setPayMethod,
+  } = useContext(ServiceCreationContext);
 
   const checkInfoValidSetted = () => {
     if (
@@ -57,14 +52,16 @@ export const ServiceSelectorModal = ({
       profesional: profesionalName,
       serviceName: serviceName,
     };
-    console.log("checkInfoValidSetted: ", checkInfoValidSetted());
+
     if (checkInfoValidSetted()) {
       await setDoc(doc(db, `${databaseName}`, `${nextId}`), newService);
-      setAddedAlert(true);
+      toast.success("Servicio agregado 👋!", {
+        position: "bottom-center",
+      });
     } else {
-      setShowAlert(true);
-      setErrorAlert(true);
-      console.log("showAlert: ", showAlert);
+      toast.warn("Campos invalidos 👋!", {
+        position: "bottom-center",
+      });
     }
   };
 
@@ -104,10 +101,10 @@ export const ServiceSelectorModal = ({
               <ProfesionalsDropdownOptions profesionals={profesionals} />
               <form>
                 <div className="mb-3">
-                  <ModalInput label={"Precio"} />
+                  <ModalInput label={"Precio"} setValue={setServicePrice} />
                 </div>
                 <div className="mb-3">
-                  <ModalInput label={"Medio de pago"} />
+                  <ModalInput label={"Medio de pago"} setValue={setPayMethod} />
                 </div>
               </form>
             </div>
@@ -127,17 +124,8 @@ export const ServiceSelectorModal = ({
                 Cargar Servicio
               </button>
             </div>
-            {showAlert ? (
-              <>
-                {errorAlert ? (
-                  <ServiceTooltip message={"Los campos no son correctos"} />
-                ) : (
-                  <ServiceTooltip message={"Servicio agregado"} />
-                )}
-              </>
-            ) : (
-              <></>
-            )}
+
+            <ToastContainer />
           </div>
         </div>
       </div>
