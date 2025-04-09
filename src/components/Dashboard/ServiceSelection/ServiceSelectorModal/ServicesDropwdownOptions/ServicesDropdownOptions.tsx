@@ -20,9 +20,9 @@ export const ServicesDropdownOptions = ({
             {serviceName || "Nombre servicio"}
           </button>
           <ul className="dropdown-menu w-100">
-            {services.map((service) => {
+            {services.map((service, index) => {
               return (
-                <li>
+                <li key={index}>
                   <a
                     className="dropdown-item"
                     href="#"

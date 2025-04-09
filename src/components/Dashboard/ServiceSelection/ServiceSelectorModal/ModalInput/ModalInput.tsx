@@ -8,7 +8,7 @@ interface ModalInputProps {
 export const ModalInput = ({ label, setValue }: ModalInputProps) => {
   return (
     <div>
-      <label for="recipient-name" className="col-form-label">
+      <label htmlFor="recipient-name" className="col-form-label">
         {label}:
       </label>
       <input

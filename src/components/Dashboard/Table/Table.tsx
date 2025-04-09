@@ -21,7 +21,7 @@ export const Table = ({ tableInfo }: TableInfoProps) => {
         <tbody>
           {tableInfo?.map((info, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <th scope="row">
                   {new Date(info.date.seconds * 1000).toLocaleString()}
                 </th>

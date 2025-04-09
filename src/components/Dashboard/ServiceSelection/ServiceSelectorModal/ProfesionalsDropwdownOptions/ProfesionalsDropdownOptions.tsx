@@ -21,9 +21,9 @@ export const ProfesionalsDropdownOptions = ({
         {profesionalName || "Profesional"}
       </button>
       <ul className="dropdown-menu  w-100">
-        {profesionals?.map((profesional) => {
+        {profesionals?.map((profesional, index) => {
           return (
-            <li>
+            <li key={index}>
               <a
                 className="dropdown-item"
                 href="#"
