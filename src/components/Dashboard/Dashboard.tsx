@@ -5,6 +5,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { NotLoggedUser } from "./NotLoguedPage/NotLoggedUser";
 import { useGetTableDocument } from "../../hooks/useGetTableDocument";
 import { ServiceSelectionContainer } from "./ServiceSelection/ServiceSelectionContainer";
+import { ShowTotalPrice } from "./ShowTotalPrice.tsx/ShowTotalPrice";
+import { ServiceCreationProvider } from "../../context/ServiceCreationContext";
 
 export const Dashboard = () => {
   const emails = useEmailDocument();
@@ -29,7 +31,6 @@ export const Dashboard = () => {
 
   const userTableInfo = useGetTableDocument(databaseName);
 
-
   return (
     <>
       {!user ? (
@@ -39,13 +40,15 @@ export const Dashboard = () => {
       ) : (
         <>
           <UserInfo></UserInfo>
+          <ServiceCreationProvider>
+            <ServiceSelectionContainer
+              tableInfo={userTableInfo}
+              databaseName={databaseName}
+            ></ServiceSelectionContainer>
 
-          <ServiceSelectionContainer
-            tableInfo={userTableInfo}
-            databaseName={databaseName}
-          ></ServiceSelectionContainer>
-
-          <Table tableInfo={userTableInfo}></Table>
+            <Table tableInfo={userTableInfo}></Table>
+            <ShowTotalPrice />
+          </ServiceCreationProvider>
         </>
       )}
     </>

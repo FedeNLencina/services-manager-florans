@@ -1,6 +1,6 @@
 import { ServiceSelectorModal } from "./ServiceSelectorModal/ServiceSelectorModal";
 import { useGetDocumentFromColection } from "../../../hooks/useGetDocumentFromColection";
-import { ServiceCreationProvider } from "../../../context/ServiceCreationContext";
+
 interface ServiceSelectionContainerProps {
   tableInfo: any[];
   databaseName: string;
@@ -17,19 +17,17 @@ export const ServiceSelectionContainer = ({
 
     return (
       <>
-        <ServiceCreationProvider>
-          <div className="d-flex justify-content-center">
-            <ServiceSelectorModal
-              services={servicesName ? servicesName.servicesName : []}
-              profesionals={
-                profesionalNames ? profesionalNames.profesionalNames : []
-              }
-              payMethods={payMethods ? payMethods.payMethods : []}
-              tableInfo={tableInfo}
-              databaseName={databaseName}
-            ></ServiceSelectorModal>
-          </div>
-        </ServiceCreationProvider>
+        <div className="d-flex justify-content-center">
+          <ServiceSelectorModal
+            services={servicesName ? servicesName.servicesName : []}
+            profesionals={
+              profesionalNames ? profesionalNames.profesionalNames : []
+            }
+            payMethods={payMethods ? payMethods.payMethods : []}
+            tableInfo={tableInfo}
+            databaseName={databaseName}
+          ></ServiceSelectorModal>
+        </div>
       </>
     );
 };
