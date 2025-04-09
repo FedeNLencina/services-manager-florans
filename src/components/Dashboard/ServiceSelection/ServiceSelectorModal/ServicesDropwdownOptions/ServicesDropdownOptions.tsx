@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ServiceCreationContext } from "../../../../../context/ServiceCreationContext";
 interface ServicesDropdownOptionsProps {
   services: any[];
 }
 export const ServicesDropdownOptions = ({
   services,
 }: ServicesDropdownOptionsProps) => {
-  const [serviceName, setServiceName] = useState<string>(" Nombre servicio");
+  const { serviceName, setServiceName } = useContext(ServiceCreationContext);
   return (
     <>
       {services.length > 0 ? (
@@ -16,7 +17,7 @@ export const ServicesDropdownOptions = ({
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            {serviceName}
+            {serviceName || "Nombre servicio"}
           </button>
           <ul className="dropdown-menu w-100">
             {services.map((service) => {

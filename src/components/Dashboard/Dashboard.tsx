@@ -42,6 +42,7 @@ export const Dashboard = () => {
           <div className="d-flex justify-content-center">
             <ServiceSelectionContainer
               tableInfo={userTableInfo}
+              databaseName={databaseName}
             ></ServiceSelectionContainer>
           </div>
           <Table tableInfo={userTableInfo}></Table>

@@ -4,9 +4,11 @@ import { useGetDocumentFromColection } from "../../../hooks/useGetDocumentFromCo
 import { ServiceCreationProvider } from "../../../context/ServiceCreationContext";
 interface ServiceSelectionContainerProps {
   tableInfo: any[];
+  databaseName: string;
 }
 export const ServiceSelectionContainer = ({
   tableInfo,
+  databaseName,
 }: ServiceSelectionContainerProps) => {
   const profesionalNames = useGetDocumentFromColection("profesionals/people");
   const servicesName = useGetDocumentFromColection(
@@ -22,6 +24,7 @@ export const ServiceSelectionContainer = ({
             profesionalNames ? profesionalNames.profesionalNames : []
           }
           tableInfo={tableInfo}
+          databaseName={databaseName}
         ></ServiceSelectorModal>
       </ServiceCreationProvider>
     </>

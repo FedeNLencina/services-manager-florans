@@ -5,25 +5,51 @@ import { ModalInput } from "./ModalInput/ModalInput";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { ServiceCreationContext } from "../../../../context/ServiceCreationContext";
+import { ServiceTooltip } from "./ServiceTooltip/ServiceTooltip";
 
 interface ServiceSelectorModalProps {
   services: any[];
   profesionals: any[];
   tableInfo: any[];
+  databaseName: string;
 }
 
 export const ServiceSelectorModal = ({
   services,
   profesionals,
   tableInfo,
+  databaseName,
 }: ServiceSelectorModalProps) => {
   const { serviceName, profesionalName, servicePrice, payMethod } = useContext(
     ServiceCreationContext
   );
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [errorAlert, setErrorAlert] = useState<boolean>(false);
+  const [addedAlert, setAddedAlert] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   if (showAlert) {
+  //     setTimeout(() => {
+  //       setShowAlert(false);
+  //     }, 1000);
+  //   }
+  // }, [showAlert]);
+
+  const checkInfoValidSetted = () => {
+    if (
+      serviceName != "Nombre servicio" &&
+      profesionalName != "Profesional" &&
+      serviceName != "" &&
+      payMethod != ""
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   const createNewService = async () => {
     const nextId = tableInfo.length - 1;
+
     const newService = {
       date: new Date(),
       payMethod: payMethod,
@@ -31,10 +57,17 @@ export const ServiceSelectorModal = ({
       profesional: profesionalName,
       serviceName: serviceName,
     };
-    await setDoc(doc(db, "cities", `${nextId}`), newService);
+    console.log("checkInfoValidSetted: ", checkInfoValidSetted());
+    if (checkInfoValidSetted()) {
+      await setDoc(doc(db, `${databaseName}`, `${nextId}`), newService);
+      setAddedAlert(true);
+    } else {
+      setShowAlert(true);
+      setErrorAlert(true);
+      console.log("showAlert: ", showAlert);
+    }
   };
 
-  useEffect(() => {});
   return (
     <>
       <button
@@ -89,11 +122,22 @@ export const ServiceSelectorModal = ({
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => {}}
+                onClick={createNewService}
               >
                 Cargar Servicio
               </button>
             </div>
+            {showAlert ? (
+              <>
+                {errorAlert ? (
+                  <ServiceTooltip message={"Los campos no son correctos"} />
+                ) : (
+                  <ServiceTooltip message={"Servicio agregado"} />
+                )}
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
