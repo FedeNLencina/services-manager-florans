@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import { createContext } from "react";
 
 interface ServiceCreationProps {
@@ -6,14 +6,13 @@ interface ServiceCreationProps {
   profesionalName?: string;
   servicePrice?: string;
   payMethod?: string;
-  setServiceName: React.Dispatch<React.SetStateAction<string>>;
-  setProfesionalName: React.Dispatch<React.SetStateAction<string>>;
-  setServicePrice: React.Dispatch<React.SetStateAction<string>>;
-  setPayMethod: React.Dispatch<React.SetStateAction<string>>;
+  setServiceName?: React.Dispatch<React.SetStateAction<string>>;
+  setProfesionalName?: React.Dispatch<React.SetStateAction<string>>;
+  setServicePrice?: React.Dispatch<React.SetStateAction<string>>;
+  setPayMethod?: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const ServiceCreationContext =
-  createContext<ServiceCreationProps | null>(null);
+export const ServiceCreationContext = createContext<ServiceCreationProps>({});
 
 export const ServiceCreationProvider = ({
   children,

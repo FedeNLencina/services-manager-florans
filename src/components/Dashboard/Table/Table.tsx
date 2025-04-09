@@ -1,6 +1,3 @@
-import React from "react";
-import { Timestamp } from "firebase/firestore";
-
 interface TableInfoProps {
   tableInfo: any[];
 }

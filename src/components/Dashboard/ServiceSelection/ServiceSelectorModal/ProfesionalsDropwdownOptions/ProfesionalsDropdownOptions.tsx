@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
 import { ServiceCreationContext } from "../../../../../context/ServiceCreationContext";
 
 interface ProfesionalsDropdownOptionsProps {
@@ -27,7 +27,9 @@ export const ProfesionalsDropdownOptions = ({
               <a
                 className="dropdown-item"
                 href="#"
-                onClick={() => setProfesionalName(profesional)}
+                onClick={() =>
+                  setProfesionalName ? setProfesionalName(profesional) : ""
+                }
               >
                 {profesional}
               </a>

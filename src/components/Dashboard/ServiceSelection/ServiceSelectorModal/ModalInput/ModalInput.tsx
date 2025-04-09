@@ -1,8 +1,6 @@
-import React from "react";
-
 interface ModalInputProps {
   label: string;
-  setValue: Function;
+  setValue?: Function;
 }
 
 export const ModalInput = ({ label, setValue }: ModalInputProps) => {
@@ -17,7 +15,7 @@ export const ModalInput = ({ label, setValue }: ModalInputProps) => {
         id="recipient-name"
         onChange={(e) => {
           e?.preventDefault;
-          setValue(e.target.value);
+          setValue ? setValue(e.target.value) : undefined;
         }}
       />
     </div>

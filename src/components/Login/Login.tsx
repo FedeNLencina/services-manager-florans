@@ -8,7 +8,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 export const Login = () => {
   const navigate = useNavigate();
 
-  const handleGoogleLogin = async (response) => {
+  const handleGoogleLogin = async (response: any) => {
     try {
       // Obtener el ID Token de Google OAuth
       const idToken = response.credential;
@@ -20,7 +20,7 @@ export const Login = () => {
       const userCredential = await signInWithCredential(auth, credential);
 
       console.log("Usuario autenticado en Firebase:", userCredential.user);
-    
+
       navigate("/");
     } catch (error) {
       console.error("Error en la autenticación con Firebase:", error);

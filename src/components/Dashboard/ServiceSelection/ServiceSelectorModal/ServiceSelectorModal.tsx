@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ServicesDropdownOptions } from "./ServicesDropwdownOptions/ServicesDropdownOptions";
 import { ProfesionalsDropdownOptions } from "./ProfesionalsDropwdownOptions/ProfesionalsDropdownOptions";
 import { ModalInput } from "./ModalInput/ModalInput";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { ServiceCreationContext } from "../../../../context/ServiceCreationContext";
-import { ServiceTooltip } from "./ServiceTooltip/ServiceTooltip";
 import { ToastContainer, toast } from "react-toastify";
 
 interface ServiceSelectorModalProps {
