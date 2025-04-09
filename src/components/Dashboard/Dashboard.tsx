@@ -39,12 +39,12 @@ export const Dashboard = () => {
       ) : (
         <>
           <UserInfo></UserInfo>
-          <div className="d-flex justify-content-center">
-            <ServiceSelectionContainer
-              tableInfo={userTableInfo}
-              databaseName={databaseName}
-            ></ServiceSelectionContainer>
-          </div>
+
+          <ServiceSelectionContainer
+            tableInfo={userTableInfo}
+            databaseName={databaseName}
+          ></ServiceSelectionContainer>
+
           <Table tableInfo={userTableInfo}></Table>
         </>
       )}

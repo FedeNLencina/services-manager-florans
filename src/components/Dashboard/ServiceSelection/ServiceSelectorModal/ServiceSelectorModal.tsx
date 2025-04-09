@@ -1,6 +1,5 @@
 import { useContext } from "react";
-import { ServicesDropdownOptions } from "./ServicesDropwdownOptions/ServicesDropdownOptions";
-import { ProfesionalsDropdownOptions } from "./ProfesionalsDropwdownOptions/ProfesionalsDropdownOptions";
+import { DropdownOptions } from "./DropwdownOptions/DropdownOptions";
 import { ModalInput } from "./ModalInput/ModalInput";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
@@ -11,6 +10,7 @@ interface ServiceSelectorModalProps {
   services: any[];
   profesionals: any[];
   tableInfo: any[];
+  payMethods: any[];
   databaseName: string;
 }
 
@@ -19,6 +19,7 @@ export const ServiceSelectorModal = ({
   profesionals,
   tableInfo,
   databaseName,
+  payMethods,
 }: ServiceSelectorModalProps) => {
   const {
     serviceName,
@@ -26,15 +27,14 @@ export const ServiceSelectorModal = ({
     servicePrice,
     payMethod,
     setServicePrice,
-    setPayMethod,
   } = useContext(ServiceCreationContext);
 
   const checkInfoValidSetted = () => {
     if (
       serviceName != "Nombre servicio" &&
       profesionalName != "Profesional" &&
-      serviceName != "" &&
-      payMethod != ""
+      servicePrice != "" &&
+      payMethod != "Medio de pago"
     ) {
       return true;
     }
@@ -96,14 +96,12 @@ export const ServiceSelectorModal = ({
               ></button>
             </div>
             <div className="modal-body d-flex flex-column ">
-              <ServicesDropdownOptions services={services} />
-              <ProfesionalsDropdownOptions profesionals={profesionals} />
+              <DropdownOptions options={services} label={"Nombre servicio"} />
+              <DropdownOptions options={profesionals} label={"Profesional"} />
+              <DropdownOptions options={payMethods} label={"Medio de pago"} />
               <form>
                 <div className="mb-3">
                   <ModalInput label={"Precio"} setValue={setServicePrice} />
-                </div>
-                <div className="mb-3">
-                  <ModalInput label={"Medio de pago"} setValue={setPayMethod} />
                 </div>
               </form>
             </div>

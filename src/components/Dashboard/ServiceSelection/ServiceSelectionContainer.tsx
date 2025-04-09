@@ -13,19 +13,23 @@ export const ServiceSelectionContainer = ({
   const servicesName = useGetDocumentFromColection(
     "servicesName/iR4RGdsiVfWmzLldN7rE"
   );
+    const payMethods = useGetDocumentFromColection("payMethods/payMethods");
 
-  return (
-    <>
-      <ServiceCreationProvider>
-        <ServiceSelectorModal
-          services={servicesName ? servicesName.servicesName : []}
-          profesionals={
-            profesionalNames ? profesionalNames.profesionalNames : []
-          }
-          tableInfo={tableInfo}
-          databaseName={databaseName}
-        ></ServiceSelectorModal>
-      </ServiceCreationProvider>
-    </>
-  );
+    return (
+      <>
+        <ServiceCreationProvider>
+          <div className="d-flex justify-content-center">
+            <ServiceSelectorModal
+              services={servicesName ? servicesName.servicesName : []}
+              profesionals={
+                profesionalNames ? profesionalNames.profesionalNames : []
+              }
+              payMethods={payMethods ? payMethods.payMethods : []}
+              tableInfo={tableInfo}
+              databaseName={databaseName}
+            ></ServiceSelectorModal>
+          </div>
+        </ServiceCreationProvider>
+      </>
+    );
 };
