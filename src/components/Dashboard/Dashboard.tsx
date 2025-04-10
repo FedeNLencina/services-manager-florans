@@ -30,7 +30,7 @@ export const Dashboard = () => {
     emailAlreadyExists != undefined ? getDatabaseName(emailAlreadyExists) : "";
 
   const userTableInfo = useGetTableDocument(databaseName);
-
+ 
   return (
     <>
       {!user ? (
@@ -47,8 +47,8 @@ export const Dashboard = () => {
             ></ServiceSelectionContainer>
 
             <Table tableInfo={userTableInfo}></Table>
-            <ShowTotalPrice />
           </ServiceCreationProvider>
+          <ShowTotalPrice tableInfo={userTableInfo} />
         </>
       )}
     </>

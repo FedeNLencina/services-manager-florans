@@ -28,9 +28,6 @@ export const ServiceSelectorModal = ({
     payMethod,
 
     setServicePrice,
-    setTotalTransferAmount,
-    setTotalCash,
-    setTotalAmount,
   } = useContext(ServiceCreationContext);
 
   const checkInfoValidSetted = () => {
@@ -43,21 +40,6 @@ export const ServiceSelectorModal = ({
       return true;
     }
     return false;
-  };
-
-  const getPriceToSetForDashboard = (
-    payMethod: string | undefined,
-    servicePrice: number
-  ) => {
-    if (payMethod == "Mercado pago") {
-      setTotalTransferAmount &&
-        setTotalTransferAmount((cash) => cash + servicePrice);
-
-      setTotalAmount && setTotalAmount((cash) => cash + servicePrice);
-    } else if (payMethod == "Efectivo") {
-      setTotalCash && setTotalCash((cash) => cash + servicePrice);
-      setTotalAmount && setTotalAmount((cash) => cash + servicePrice);
-    }
   };
 
   const createNewService = async () => {
@@ -73,7 +55,7 @@ export const ServiceSelectorModal = ({
 
     if (checkInfoValidSetted()) {
       await setDoc(doc(db, `${databaseName}`, `${nextId}`), newService);
-      getPriceToSetForDashboard(payMethod, servicePrice);
+
       toast.success("Servicio agregado 👋!", {
         position: "bottom-center",
       });
