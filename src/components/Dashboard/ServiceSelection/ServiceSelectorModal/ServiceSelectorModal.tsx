@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { DropdownOptions } from "./DropwdownOptions/DropdownOptions";
 import { ModalInput } from "./ModalInput/ModalInput";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { ServiceCreationContext } from "../../../../context/ServiceCreationContext";
 import { ToastContainer, toast } from "react-toastify";
@@ -43,8 +43,6 @@ export const ServiceSelectorModal = ({
   };
 
   const createNewService = async () => {
-    const nextId = tableInfo.length - 1;
-
     const newService = {
       date: new Date(),
       payMethod: payMethod,
@@ -54,7 +52,8 @@ export const ServiceSelectorModal = ({
     };
 
     if (checkInfoValidSetted()) {
-      await setDoc(doc(db, `${databaseName}`, `${nextId}`), newService);
+      const docRef = await addDoc(collection(db, databaseName), newService);
+      console.log("Document written with ID: ", docRef.id);
 
       toast.success("Servicio agregado 👋!", {
         position: "bottom-center",

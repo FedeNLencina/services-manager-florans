@@ -15,7 +15,7 @@ export const ModalInput = ({ label, setValue }: ModalInputProps) => {
         id="recipient-name"
         onChange={(e) => {
           e?.preventDefault;
-          setValue ? setValue(e.target.value) : undefined;
+          setValue ? setValue(parseInt(e.target.value)) : undefined;
         }}
       />
     </div>
