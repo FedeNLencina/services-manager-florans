@@ -14,15 +14,20 @@ export const ShowTotalPrice = ({ tableInfo }: ShowTotalPriceProps) => {
       let cash = 0;
       let totalPrice = 0;
 
-      tableInfo.forEach((service) => {
-        if (service.payMethod === "Mercado pago") {
-          transfer = +service.price;
-        } else if (service.payMethod === "Efectivo") {
-          cash = +service.price;
-        }
-      });
+        tableInfo.forEach((service) => {
+        
+          if (service.payMethod === "Mercado pago") {
+            
+            transfer = transfer + service.price;
+          } else if (service.payMethod === "Efectivo") {
+          
+            cash = cash + service.price;
+          }
+        });
+     
 
-      totalPrice = transfer + cash;
+        totalPrice = transfer + cash;
+        
 
       setTotalTransferAmount(transfer);
       setTotalCash(cash);

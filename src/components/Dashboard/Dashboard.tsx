@@ -30,27 +30,27 @@ export const Dashboard = () => {
     emailAlreadyExists != undefined ? getDatabaseName(emailAlreadyExists) : "";
 
   const userTableInfo = useGetTableDocument(databaseName);
- 
-  return (
-    <>
-      {!user ? (
-        <>
-          <NotLoggedUser></NotLoggedUser>
-        </>
-      ) : (
-        <>
-          <UserInfo></UserInfo>
-          <ServiceCreationProvider>
-            <ServiceSelectionContainer
-              tableInfo={userTableInfo}
-              databaseName={databaseName}
-            ></ServiceSelectionContainer>
+ console.log("user table: ", userTableInfo);
+ return (
+   <>
+     {!user ? (
+       <>
+         <NotLoggedUser></NotLoggedUser>
+       </>
+     ) : (
+       <>
+         <UserInfo></UserInfo>
+         <ServiceCreationProvider>
+           <ServiceSelectionContainer
+             tableInfo={userTableInfo}
+             databaseName={databaseName}
+           ></ServiceSelectionContainer>
 
-            <Table tableInfo={userTableInfo}></Table>
-          </ServiceCreationProvider>
-          <ShowTotalPrice tableInfo={userTableInfo} />
-        </>
-      )}
-    </>
-  );
+           <Table tableInfo={userTableInfo}></Table>
+         </ServiceCreationProvider>
+         <ShowTotalPrice tableInfo={userTableInfo ? userTableInfo : []} />
+       </>
+     )}
+   </>
+ );
 };
