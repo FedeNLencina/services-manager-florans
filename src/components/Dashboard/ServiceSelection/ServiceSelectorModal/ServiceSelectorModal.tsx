@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { DropdownOptions } from "./DropwdownOptions/DropdownOptions";
 import { ModalInput } from "./ModalInput/ModalInput";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { ServiceCreationContext } from "../../../../context/ServiceCreationContext";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,7 +17,6 @@ interface ServiceSelectorModalProps {
 export const ServiceSelectorModal = ({
   services,
   profesionals,
-  tableInfo,
   databaseName,
   payMethods,
 }: ServiceSelectorModalProps) => {
