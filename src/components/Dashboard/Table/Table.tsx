@@ -1,3 +1,5 @@
+import { formatCurrency } from "../../../utils/formatARGPrice";
+
 interface TableInfoProps {
   tableInfo: any[];
 }
@@ -23,7 +25,7 @@ export const Table = ({ tableInfo }: TableInfoProps) => {
                 </th>
                 <td>{info.profesional}</td>
                 <td>{info.serviceName}</td>
-                <td>{parseInt(info.price)}</td>
+                <td>{formatCurrency(parseInt(info.price))}</td>
                 <td>{info.payMethod}</td>
               </tr>
             );
