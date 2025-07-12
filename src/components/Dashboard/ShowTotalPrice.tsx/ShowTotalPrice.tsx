@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../../../utils/formatARGPrice";
+import "./ShowTotalPrice.css";
 
 interface ShowTotalPriceProps {
   tableInfo: any[];
@@ -35,12 +36,19 @@ export const ShowTotalPrice = ({ tableInfo }: ShowTotalPriceProps) => {
     }
   }, [tableInfo]);
   return (
-    <div className="d-flex justify-content-around w-100">
-      <p>Total ingresos en efectivo : {formatCurrency(totalCash)}</p>
-      <p>
-        Total ingresos en mercado pago : {formatCurrency(totalTransferAmount)}
-      </p>
-      <p>Total de ingresos: {formatCurrency(totalAmount)}</p>
+    <div className="d-flex justify-content-around w-75 mx-auto">
+      <div className="totalPrice">
+        <h3>Total ingresos en efectivo</h3>
+        <p>{formatCurrency(totalCash)}</p>
+      </div>
+      <div className="totalPrice">
+        <h3>Total ingresos en mercado pago</h3>
+        <p>{formatCurrency(totalTransferAmount)}</p>
+      </div>
+      <div className="totalPrice">
+        <h3>Total de ingresos</h3>
+        <p>{formatCurrency(totalAmount)}</p>
+      </div>
     </div>
   );
 };
