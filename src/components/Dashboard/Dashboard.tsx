@@ -7,6 +7,7 @@ import { useGetTableDocument } from "../../hooks/useGetTableDocument";
 import { ServiceSelectionContainer } from "./ServiceSelection/ServiceSelectionContainer";
 import { ShowTotalPrice } from "./ShowTotalPrice.tsx/ShowTotalPrice";
 import { ServiceCreationProvider } from "../../context/ServiceCreationContext";
+import { exportToExcel } from "../../utils/exportToExcel";
 
 export const getDatabaseName = (email: string) => {
   let databaseName;
@@ -31,6 +32,11 @@ export const Dashboard = () => {
 
   const userTableInfo = useGetTableDocument(databaseName);
   console.log("user table: ", userTableInfo);
+
+  const handleExportExcel = () => {
+    console.log("llamo a exportar");
+    exportToExcel(userTableInfo);
+  };
   return (
     <>
       {!user ? (
@@ -51,6 +57,13 @@ export const Dashboard = () => {
               databaseName={databaseName}
               tableInfo={userTableInfo}
             ></Table>
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={handleExportExcel}
+            >
+              Exportar excel
+            </button>
           </ServiceCreationProvider>
         </>
       )}

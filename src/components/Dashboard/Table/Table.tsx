@@ -11,6 +11,12 @@ export const Table = ({ tableInfo, databaseName }: TableInfoProps) => {
     await deleteDoc(doc(db, databaseName, id));
   };
 
+  const tableOrderedByDateAndHour = tableInfo.sort((a, b) => {
+    const dateA = new Date(`${a.fecha} ${a.hora}`);
+    const dateB = new Date(`${b.fecha} ${b.hora}`);
+    return dateA.getTime() - dateB.getTime();
+  });
+
   return (
     <div className="container text-center">
       <table className="table">
@@ -24,12 +30,14 @@ export const Table = ({ tableInfo, databaseName }: TableInfoProps) => {
           </tr>
         </thead>
         <tbody>
-          {tableInfo?.map((info, index) => {
+          {tableOrderedByDateAndHour?.map((info, index) => {
             console.log("info: ", info);
+            const date = new Date(info.date.seconds * 1000);
             return (
               <tr key={index}>
                 <th scope="row">
-                  {new Date(info.date.seconds * 1000).toLocaleString()}
+                  {date.toLocaleDateString("es-AR")}
+                  {` ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`}
                 </th>
                 <td>{info.profesional}</td>
                 <td>{info.serviceName}</td>
