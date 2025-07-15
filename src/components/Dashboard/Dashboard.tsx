@@ -8,6 +8,7 @@ import { ServiceSelectionContainer } from "./ServiceSelection/ServiceSelectionCo
 import { ShowTotalPrice } from "./ShowTotalPrice.tsx/ShowTotalPrice";
 import { ServiceCreationProvider } from "../../context/ServiceCreationContext";
 import { exportToExcel } from "../../utils/exportToExcel";
+import { ForbiddenAccess } from "../ForbiddenAccess/ForbiddenAcces";
 
 export const getDatabaseName = (email: string) => {
   let databaseName;
@@ -39,11 +40,14 @@ export const Dashboard = () => {
   };
   return (
     <>
-      {!user ? (
+      {user && !emailAlreadyExists && <ForbiddenAccess></ForbiddenAccess>}
+      {!user && (
         <>
           <NotLoggedUser></NotLoggedUser>
         </>
-      ) : (
+      )}
+      _
+      {user && emailAlreadyExists && (
         <>
           <UserInfo></UserInfo>
           <ServiceCreationProvider>
