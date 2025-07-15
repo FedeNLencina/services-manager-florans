@@ -11,6 +11,7 @@ import { exportToExcel } from "../../utils/exportToExcel";
 import { ForbiddenAccess } from "../ForbiddenAccess/ForbiddenAcces";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import { LoadingPage } from "../Loading/LoadingPage";
 
 export const getDatabaseName = (email: string) => {
   let databaseName;
@@ -26,39 +27,36 @@ export const getDatabaseName = (email: string) => {
 };
 
 export const Dashboard = () => {
-  const [renderSkeleton, setRenderSkeleton] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const emails = useEmailDocument();
   const user = useAuth();
   const emailAlreadyExists = emails.find((email) => email == user?.email);
-  console.log("email already eexist: ", emailAlreadyExists);
+
   const databaseName =
     emailAlreadyExists != undefined ? getDatabaseName(emailAlreadyExists) : "";
 
   const userTableInfo = useGetTableDocument(databaseName);
-  console.log("user table: ", userTableInfo);
 
   const handleExportExcel = () => {
-    console.log("llamo a exportar");
     exportToExcel(userTableInfo);
   };
-  //console.log("render skeleton: ", renderSkeleton);
+
   useEffect(() => {
-    console.log("render skeleton: ", renderSkeleton);
-    if (user && !emailAlreadyExists) {
-      setRenderSkeleton(false);
-    }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   }, []);
 
   return (
     <>
-      {renderSkeleton && <Skeleton></Skeleton>}
-      {user && !emailAlreadyExists && <ForbiddenAccess></ForbiddenAccess>}
-      {!user && (
+      {isLoading && <LoadingPage></LoadingPage>}
+      {!emailAlreadyExists && !isLoading && <ForbiddenAccess></ForbiddenAccess>}
+      {!user && !isLoading && (
         <>
           <NotLoggedUser></NotLoggedUser>
         </>
       )}
-      {user && emailAlreadyExists && (
+      {emailAlreadyExists && !isLoading && (
         <>
           <UserInfo></UserInfo>
           <ServiceCreationProvider>
