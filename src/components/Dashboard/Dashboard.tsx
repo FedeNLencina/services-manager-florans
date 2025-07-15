@@ -9,6 +9,8 @@ import { ShowTotalPrice } from "./ShowTotalPrice.tsx/ShowTotalPrice";
 import { ServiceCreationProvider } from "../../context/ServiceCreationContext";
 import { exportToExcel } from "../../utils/exportToExcel";
 import { ForbiddenAccess } from "../ForbiddenAccess/ForbiddenAcces";
+import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export const getDatabaseName = (email: string) => {
   let databaseName;
@@ -24,10 +26,11 @@ export const getDatabaseName = (email: string) => {
 };
 
 export const Dashboard = () => {
+  const [renderSkeleton, setRenderSkeleton] = useState(true);
   const emails = useEmailDocument();
   const user = useAuth();
   const emailAlreadyExists = emails.find((email) => email == user?.email);
-
+  console.log("email already eexist: ", emailAlreadyExists);
   const databaseName =
     emailAlreadyExists != undefined ? getDatabaseName(emailAlreadyExists) : "";
 
@@ -38,15 +41,23 @@ export const Dashboard = () => {
     console.log("llamo a exportar");
     exportToExcel(userTableInfo);
   };
+  //console.log("render skeleton: ", renderSkeleton);
+  useEffect(() => {
+    console.log("render skeleton: ", renderSkeleton);
+    if (user && !emailAlreadyExists) {
+      setRenderSkeleton(false);
+    }
+  }, []);
+
   return (
     <>
+      {renderSkeleton && <Skeleton></Skeleton>}
       {user && !emailAlreadyExists && <ForbiddenAccess></ForbiddenAccess>}
       {!user && (
         <>
           <NotLoggedUser></NotLoggedUser>
         </>
       )}
-      _
       {user && emailAlreadyExists && (
         <>
           <UserInfo></UserInfo>
