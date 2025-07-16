@@ -10,7 +10,6 @@ import { ServiceCreationProvider } from "../../context/ServiceCreationContext";
 import { exportToExcel } from "../../utils/exportToExcel";
 import { ForbiddenAccess } from "../ForbiddenAccess/ForbiddenAcces";
 import { useEffect, useState } from "react";
-import Skeleton from "react-loading-skeleton";
 import { LoadingPage } from "../Loading/LoadingPage";
 
 export const getDatabaseName = (email: string) => {
